@@ -4,7 +4,7 @@
   <HelloWorld count="count" />
   <button @click="count++">Add 1</button>
 
-  <p v-if="show">{{ title }}: {{ count }}</p>
+  <p v-show="show">{{ title }}: {{ count }}</p>
   <button @click="changeShow">show-hide</button>
 </template>
 
