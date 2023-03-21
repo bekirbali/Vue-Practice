@@ -4,7 +4,7 @@
   <p v-show="show">{{ title }}: {{ count }}</p>
   <button @click="changeShow">show-hide</button>
   <Header :count="count" />
-  <Tasks :task="tasks" class="box" />
+  <Tasks @delete-task="deleteTask" @update-task="updateTask" :tasks="tasks" />
   <Button text="Add Task" />
   <Button text="Delete Task" />
   <Button text="Update Task" />
@@ -35,14 +35,14 @@ export default {
       {
         id: 2,
         text: "Task 2",
-        day: "wednesday",
+        day: "Wednesday",
         reminder: false,
       },
       {
         id: 3,
         text: "Task 3",
         day: "Friday",
-        reminder: true,
+        reminder: false,
       },
     ];
   },
@@ -50,7 +50,17 @@ export default {
   methods: {
     changeShow() {
       this.show = !this.show;
-      console.log(this.tasks);
+      console.log(this.tasks.map((task) => task.text));
+    },
+    deleteTask(id) {
+      console.log("task", id);
+      this.tasks = this.tasks.filter((task) => task.id !== id);
+    },
+    updateTask(id) {
+      console.log("task", id);
+      this.tasks = this.tasks.map((task) =>
+        task.id === id ? { ...task, reminder: !task.reminder } : task
+      );
     },
   },
 };

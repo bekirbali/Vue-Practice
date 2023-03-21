@@ -1,1 +1,4 @@
-@import "./base.css";
+body {
+  background-color: rgb(30, 35, 39);
+  color: white;
+}

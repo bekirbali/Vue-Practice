@@ -1,18 +1,33 @@
 <template>
   <div>
-    <div :key="task.id" v-for="task in props.tasks">
-      {{ task.text }}
+    <h1 @click="show">hello</h1>
+    <div :key="task.id" v-for="task in tasks">
+      <Task
+        @delete-task="$emit('delete-task', task.id)"
+        @update-task="$emit('update-task', task.id)"
+        :task="task"
+      />
     </div>
   </div>
 </template>
 
-<script setup>
+<script>
 import Task from "./Task.vue";
-import { defineProps } from "vue";
-const props = defineProps(["tasks"]);
-console.log(props.tasks);
-
-components: {
-  Task;
-}
+export default {
+  name: "Tasks",
+  props: {
+    tasks: {
+      type: Array,
+    },
+  },
+  methods: {
+    show() {
+      console.log(this.tasks);
+    },
+  },
+  components: {
+    Task,
+  },
+  emits: ["delete-task", "update-task"],
+};
 </script>
