@@ -2,8 +2,9 @@
   <button @click="count++">Add 1</button>
 
   <p v-show="show">{{ title }}: {{ count }}</p>
-  <button @click="changeShow">show-hide</button>
+  <button @click="changeShow">{{ show ? "hide" : "show" }}</button>
   <Header :count="count" />
+  <AddTask v-show="show" @add-task="taskAdd" />
   <Tasks @delete-task="deleteTask" @update-task="updateTask" :tasks="tasks" />
   <Button text="Add Task" />
   <Button text="Delete Task" />
@@ -14,6 +15,7 @@
 import Button from "./components/Button.vue";
 import Header from "./components/Header.vue";
 import Tasks from "./components/Tasks.vue";
+import AddTask from "./components/AddTask.vue";
 
 export default {
   data() {
@@ -46,7 +48,7 @@ export default {
       },
     ];
   },
-  components: { Header, Button, Tasks },
+  components: { Header, Button, Tasks, AddTask },
   methods: {
     changeShow() {
       this.show = !this.show;
@@ -62,6 +64,20 @@ export default {
         task.id === id ? { ...task, reminder: !task.reminder } : task
       );
     },
+    taskAdd(newTask) {
+      this.tasks = [...this.tasks, newTask];
+      console.log(this.tasks);
+    },
   },
 };
 </script>
+
+<style scoped>
+button {
+  padding: 0.5rem;
+  border-radius: 0.4rem;
+  border: none;
+  background-color: #ff7171;
+  cursor: pointer;
+}
+</style>

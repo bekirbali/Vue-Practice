@@ -1,6 +1,6 @@
 <template>
   <div :class="[task.reminder ? 'reminder' : 'task', 'fixed']">
-    <h3 @dblclick="updateHandler(task.id)">
+    <h3 role="button" @dblclick="updateHandler(task.id)">
       {{ task.text }} {{ task.day }}
       <span @click="deleteHandler(task.id)">(X)</span>
     </h3>
